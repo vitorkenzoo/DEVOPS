@@ -1,0 +1,19 @@
+# Dockerfile.db
+FROM gvenzl/oracle-xe:latest-faststart
+
+# 1) Define senha de SYS/SYSTEM
+ENV ORACLE_PASSWORD=oracle
+
+# 2) Variável de ambiente extra (exemplo)
+ENV ORACLE_CUSTOM_FLAG=ready
+
+# 3) (Opcional) WORKDIR para indicar onde ficam os dados
+WORKDIR /opt/oracle/oradata
+
+# 4) Expor a porta padrão do Oracle
+EXPOSE 1521
+
+# 5) Volume para persistência dos dados
+VOLUME ["/opt/oracle/oradata"]
+
+# (A imagem já cuida de rodar como usuário 'oracle' e iniciar o DB)
