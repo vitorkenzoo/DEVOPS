@@ -1,0 +1,29 @@
+FROM sath89/oracle-xe-11g:latest
+
+# 1) Cria grupo e usuário não-root
+RUN groupadd -r dbgroup \
+ && useradd -r -g dbgroup -d /home/dbuser -s /bin/bash dbuser \
+ && mkdir -p /home/dbuser \
+ && chown -R dbuser:dbgroup /home/dbuser
+
+# 2) Define WORKDIR sob a home do dbuser
+WORKDIR /home/dbuser
+
+# 3) Variável de ambiente de exemplo
+ENV ORACLE_CUSTOM_FLAG=ready
+
+# 4) Expõe a porta padrão do Oracle
+EXPOSE 1521
+
+# 5) Volume para persistência dos dados
+VOLUME ["/opt/oracle/oradata"]
+
+# 6) Ajusta permissões da área de dados do Oracle
+USER root
+RUN chown -R dbuser:dbgroup /opt/oracle/oradata
+
+# 7) Muda para o usuário não-root
+USER dbuser
+
+# 8) Entry point padrão da imagem base
+CMD ["/bin/bash", "/entrypoint.sh"]

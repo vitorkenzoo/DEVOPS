@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "e9lVisaM0yw=",
+  "dgSpecHash": "bUcNgBkJJaY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vitor Mizumoto\\Downloads\\.NETGS\\FuracaoAlerta.API.csproj",
+  "projectFilePath": "C:\\Users\\Vitor Mizumoto\\DEVOPSGS\\DEVOPS\\FuracaoAlerta.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vitor Mizumoto\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Vitor Mizumoto\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\6.0.0\\microsoft.aspnetcore.mvc.razor.extensions.6.0.0.nupkg.sha512",

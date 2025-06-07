@@ -1,26 +1,26 @@
-# --- Etapa 1: imagem base de runtime ---
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-WORKDIR /app
-EXPOSE 8080
-
-# --- Etapa 2: build e publish ---
+# — Etapa de build —
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# 1) Copia apenas o csproj e restaura dependências
-COPY ["FuracaoAlerta.API.csproj", "./"]
-RUN dotnet restore "FuracaoAlerta.API.csproj"
+COPY *.csproj ./
+RUN dotnet restore
 
-# 2) Copia todo o restante do código e faz build + publish
 COPY . .
-RUN dotnet publish "FuracaoAlerta.API.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app
 
-# --- Etapa 3: imagem final ---
-FROM base AS final
+# — Etapa de runtime —
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
+COPY --from=build /app .
 
-# Copia o resultado do publish
-COPY --from=build /app/publish .
+# Faz o Kestrel escutar em 0.0.0.0:8080
+ENV ASPNETCORE_URLS="http://+:8080"
 
-# Define o entrypoint
+# Connection string para o Oracle no container oracle-db
+ENV ConnectionStrings__DefaultConnection="User Id=rm557245;Password=021005;Data Source=oracle-db:1521/XE"
+
+
+# Expõe a porta 8080
+EXPOSE 8080
+
 ENTRYPOINT ["dotnet", "FuracaoAlerta.API.dll"]
