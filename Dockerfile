@@ -1,24 +1,23 @@
-# — Etapa de build —
+# Runtime ASP.NET 9.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+WORKDIR /app
+EXPOSE 5029
+ENV ASPNETCORE_URLS=http://+:5029
+
+# Build com SDK 9.0
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-
-COPY *.csproj ./
-RUN dotnet restore
-
+COPY ["FuracaoAlerta.API.csproj", "./"]
+RUN dotnet restore "FuracaoAlerta.API.csproj"
 COPY . .
-RUN dotnet publish "FuracaoAlerta.API.csproj" -c Release -o /app
+RUN dotnet build "FuracaoAlerta.API.csproj" -c Release -o /app/build
 
-# — Etapa de runtime —
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+# Publicação
+FROM build AS publish
+RUN dotnet publish "FuracaoAlerta.API.csproj" -c Release -o /app/publish
+
+# Imagem final
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app .
-
-# Kestrel em 0.0.0.0:8080
-ENV ASPNETCORE_URLS="http://+:8080"
-
-# Connection string para o Oracle (service XEPDB1)
-ENV ConnectionStrings__DefaultConnection="User Id=system;Password=oracle;Data Source=oracle-db:1521/XEPDB1"
-
-EXPOSE 8080
-
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "FuracaoAlerta.API.dll"]
