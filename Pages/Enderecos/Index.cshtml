@@ -1,0 +1,75 @@
+@page
+@model FuracaoAlerta.API.Pages.Enderecos.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Gerenciar Endereços</h1>
+
+<h2>Adicionar Novo Endereço</h2>
+<form method="post" asp-page-handler="Create">
+    <div>
+        <label>Rua:</label>
+        <input asp-for="NovoEndereco.Rua" />
+    </div>
+    <div>
+        <label>Número:</label>
+        <input asp-for="NovoEndereco.Numero" />
+    </div>
+    <div>
+        <label>Bairro:</label>
+        <input asp-for="NovoEndereco.Bairro" />
+    </div>
+    <div>
+        <label>Cidade:</label>
+        <input asp-for="NovoEndereco.Cidade" />
+    </div>
+    <div>
+        <label>Estado:</label>
+        <input asp-for="NovoEndereco.Estado" />
+    </div>
+    <button type="submit">Criar</button>
+</form>
+
+<hr />
+
+<h2>Endereços Cadastrados</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Rua</th>
+            <th>Número</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var endereco in Model.Enderecos)
+        {
+            <tr>
+                <td>@endereco.Rua</td>
+                <td>@endereco.Numero</td>
+                <td>@endereco.Bairro</td>
+                <td>@endereco.Cidade</td>
+                <td>@endereco.Estado</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete">
+                        <input type="hidden" name="id" value="@endereco.IdEndereco" />
+                        <button type="submit">Excluir</button>
+                    </form>
+
+                    <form method="post" asp-page-handler="Edit">
+                        <input type="hidden" asp-for="EnderecoEditado.IdEndereco" value="@endereco.IdEndereco" />
+                        <input asp-for="EnderecoEditado.Rua" value="@endereco.Rua" />
+                        <input asp-for="EnderecoEditado.Numero" value="@endereco.Numero" />
+                        <input asp-for="EnderecoEditado.Bairro" value="@endereco.Bairro" />
+                        <input asp-for="EnderecoEditado.Cidade" value="@endereco.Cidade" />
+                        <input asp-for="EnderecoEditado.Estado" value="@endereco.Estado" />
+                        <button type="submit">Editar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

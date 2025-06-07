@@ -1,0 +1,95 @@
+@page
+@model FuracaoAlerta.API.Pages.Alertas.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Gerenciamento de Alertas</h1>
+
+<h2>Novo Alerta</h2>
+<form method="post" asp-page-handler="Create">
+    <div>
+        <label asp-for="NovoAlerta.Tipo"></label>
+        <input asp-for="NovoAlerta.Tipo" />
+    </div>
+    <div>
+        <label asp-for="NovoAlerta.Descricao"></label>
+        <input asp-for="NovoAlerta.Descricao" />
+    </div>
+    <div>
+        <label asp-for="NovoAlerta.Data"></label>
+        <input asp-for="NovoAlerta.Data" type="datetime-local" />
+    </div>
+    <div>
+        <label asp-for="NovoAlerta.EventoId">ID do Evento</label>
+        <input asp-for="NovoAlerta.EventoId" type="number" />
+    </div>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr />
+
+<h2>Alertas Cadastrados</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>ID Evento</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var alerta in Model.Alertas)
+        {
+            <tr>
+                <td>@alerta.Tipo</td>
+                <td>@alerta.Descricao</td>
+                <td>@alerta.Data.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@alerta.EventoId</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" style="display:inline;">
+                        <input type="hidden" name="id" value="@alerta.IdAlerta" />
+                        <button type="submit">Excluir</button>
+                    </form>
+                    <button onclick="preencherFormularioEdicao(@alerta.IdAlerta, '@alerta.Tipo', '@alerta.Descricao', '@alerta.Data.ToString("yyyy-MM-ddTHH:mm")', @alerta.EventoId)">Editar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h2>Editar Alerta</h2>
+<form method="post" asp-page-handler="Edit">
+    <input type="hidden" asp-for="AlertaEditado.IdAlerta" />
+    <div>
+        <label asp-for="AlertaEditado.Tipo"></label>
+        <input asp-for="AlertaEditado.Tipo" />
+    </div>
+    <div>
+        <label asp-for="AlertaEditado.Descricao"></label>
+        <input asp-for="AlertaEditado.Descricao" />
+    </div>
+    <div>
+        <label asp-for="AlertaEditado.Data"></label>
+        <input asp-for="AlertaEditado.Data" type="datetime-local" />
+    </div>
+    <div>
+        <label asp-for="AlertaEditado.EventoId">ID do Evento</label>
+        <input asp-for="AlertaEditado.EventoId" type="number" />
+    </div>
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+@section Scripts {
+    <script>
+        function preencherFormularioEdicao(id, tipo, descricao, data, eventoId) {
+            document.querySelector('[name="AlertaEditado.IdAlerta"]').value = id;
+            document.querySelector('[name="AlertaEditado.Tipo"]').value = tipo;
+            document.querySelector('[name="AlertaEditado.Descricao"]').value = descricao;
+            document.querySelector('[name="AlertaEditado.Data"]').value = data;
+            document.querySelector('[name="AlertaEditado.EventoId"]').value = eventoId;
+        }
+    </script>
+}

@@ -1,0 +1,67 @@
+@page
+@model FuracaoAlerta.API.Pages.Usuarios.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Gerenciamento de Usuários</h1>
+
+<form method="post">
+    <div>
+        <label asp-for="UsuarioModel.Nome"></label>
+        <input asp-for="UsuarioModel.Nome" />
+        <span asp-validation-for="UsuarioModel.Nome"></span>
+    </div>
+    <div>
+        <label asp-for="UsuarioModel.Email"></label>
+        <input asp-for="UsuarioModel.Email" />
+        <span asp-validation-for="UsuarioModel.Email"></span>
+    </div>
+    <div>
+        <label asp-for="UsuarioModel.Telefone"></label>
+        <input asp-for="UsuarioModel.Telefone" />
+    </div>
+    <div>
+        <label asp-for="UsuarioModel.Cpf"></label>
+        <input asp-for="UsuarioModel.Cpf" />
+    </div>
+    <div>
+        <label asp-for="UsuarioModel.Senha"></label>
+        <input asp-for="UsuarioModel.Senha" type="password" />
+    </div>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr />
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Abrigo</th>
+            <th>Endereço</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usuario in Model.Usuarios)
+        {
+            <tr>
+                <td>@usuario.Nome</td>
+                <td>@usuario.Email</td>
+                <td>@usuario.Telefone</td>
+                <td>@usuario.Abrigo?.Nome</td>
+                <td>@usuario.Endereco?.Rua</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@usuario.IdUsuario" onsubmit="return confirm('Tem certeza que deseja excluir?');">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

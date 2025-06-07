@@ -1,0 +1,95 @@
+@page
+@model FuracaoAlerta.API.Pages.Abrigos.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Gerenciamento de Abrigos</h1>
+
+<h2>Cadastro de Novo Abrigo</h2>
+<form method="post" asp-page-handler="Create">
+    <div>
+        <label asp-for="NovoAbrigo.Nome"></label>
+        <input asp-for="NovoAbrigo.Nome" />
+    </div>
+    <div>
+        <label asp-for="NovoAbrigo.CapacidadeTotal"></label>
+        <input asp-for="NovoAbrigo.CapacidadeTotal" type="number" />
+    </div>
+    <div>
+        <label asp-for="NovoAbrigo.LotacaoAtual"></label>
+        <input asp-for="NovoAbrigo.LotacaoAtual" type="number" />
+    </div>
+    <div>
+        <label asp-for="NovoAbrigo.Coordenadas"></label>
+        <input asp-for="NovoAbrigo.Coordenadas" />
+    </div>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr />
+
+<h2>Abrigos Cadastrados</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Capacidade Total</th>
+            <th>Lotação Atual</th>
+            <th>Coordenadas</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var abrigo in Model.Abrigos)
+        {
+            <tr>
+                <td>@abrigo.Nome</td>
+                <td>@abrigo.CapacidadeTotal</td>
+                <td>@abrigo.LotacaoAtual</td>
+                <td>@abrigo.Coordenadas</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" style="display:inline;">
+                        <input type="hidden" name="id" value="@abrigo.IdAbrigo" />
+                        <button type="submit">Excluir</button>
+                    </form>
+                    <button onclick="preencherFormularioEdicao(@abrigo.IdAbrigo, '@abrigo.Nome', @abrigo.CapacidadeTotal, @abrigo.LotacaoAtual, '@abrigo.Coordenadas')">Editar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h2>Edição de Abrigo</h2>
+<form method="post" asp-page-handler="Edit">
+    <input type="hidden" asp-for="AbrigoEditado.IdAbrigo" />
+    <div>
+        <label asp-for="AbrigoEditado.Nome"></label>
+        <input asp-for="AbrigoEditado.Nome" />
+    </div>
+    <div>
+        <label asp-for="AbrigoEditado.CapacidadeTotal"></label>
+        <input asp-for="AbrigoEditado.CapacidadeTotal" type="number" />
+    </div>
+    <div>
+        <label asp-for="AbrigoEditado.LotacaoAtual"></label>
+        <input asp-for="AbrigoEditado.LotacaoAtual" type="number" />
+    </div>
+    <div>
+        <label asp-for="AbrigoEditado.Coordenadas"></label>
+        <input asp-for="AbrigoEditado.Coordenadas" />
+    </div>
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+@section Scripts {
+    <script>
+        function preencherFormularioEdicao(id, nome, capacidade, lotacao, coordenadas) {
+            document.querySelector('[name="AbrigoEditado.IdAbrigo"]').value = id;
+            document.querySelector('[name="AbrigoEditado.Nome"]').value = nome;
+            document.querySelector('[name="AbrigoEditado.CapacidadeTotal"]').value = capacidade;
+            document.querySelector('[name="AbrigoEditado.LotacaoAtual"]').value = lotacao;
+            document.querySelector('[name="AbrigoEditado.Coordenadas"]').value = coordenadas;
+        }
+    </script>
+}

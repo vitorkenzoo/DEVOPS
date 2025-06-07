@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "P78QdrqOTAPIg1FMvnvUHYhXClMWxQEg8st+hkLOwcY=",
+  "Source": "FuracaoAlerta.API",
+  "BasePath": "_content/FuracaoAlerta.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

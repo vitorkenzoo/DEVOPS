@@ -1,0 +1,105 @@
+@page
+@model FuracaoAlerta.API.Pages.Eventos.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Eventos</h1>
+
+<h2>Criar Novo Evento</h2>
+<form method="post" asp-page-handler="Create">
+    <div>
+        <label>Nome:</label>
+        <input asp-for="NovoEvento.Nome" />
+    </div>
+    <div>
+        <label>Intensidade:</label>
+        <input asp-for="NovoEvento.Intensidade" type="number" />
+    </div>
+    <div>
+        <label>Data Início:</label>
+        <input asp-for="NovoEvento.DataInicio" type="datetime-local" />
+    </div>
+    <div>
+        <label>Localização:</label>
+        <input asp-for="NovoEvento.Localizacao" />
+    </div>
+    <div>
+        <label>Status:</label>
+        <input asp-for="NovoEvento.Status" />
+    </div>
+    <button type="submit">Criar</button>
+</form>
+
+<hr />
+
+<h2>Lista de Eventos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Intensidade</th>
+            <th>Data Início</th>
+            <th>Localização</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evento in Model.Eventos)
+        {
+            <tr>
+                <td>@evento.Nome</td>
+                <td>@evento.Intensidade</td>
+                <td>@evento.DataInicio.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@evento.Localizacao</td>
+                <td>@evento.Status</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@evento.IdFuracao" style="display:inline">
+                        <button type="submit">Remover</button>
+                    </form>
+                    <button onclick="preencherEdicao(@evento.IdFuracao, '@evento.Nome', @evento.Intensidade, '@evento.DataInicio.ToString("yyyy-MM-ddTHH:mm")', '@evento.Localizacao', '@evento.Status')">Editar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<h2>Editar Evento</h2>
+<form method="post" asp-page-handler="Edit">
+    <input type="hidden" asp-for="EventoEditado.IdFuracao" />
+    <div>
+        <label>Nome:</label>
+        <input asp-for="EventoEditado.Nome" />
+    </div>
+    <div>
+        <label>Intensidade:</label>
+        <input asp-for="EventoEditado.Intensidade" type="number" />
+    </div>
+    <div>
+        <label>Data Início:</label>
+        <input asp-for="EventoEditado.DataInicio" type="datetime-local" />
+    </div>
+    <div>
+        <label>Localização:</label>
+        <input asp-for="EventoEditado.Localizacao" />
+    </div>
+    <div>
+        <label>Status:</label>
+        <input asp-for="EventoEditado.Status" />
+    </div>
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+@section Scripts {
+    <script>
+        function preencherEdicao(id, nome, intensidade, dataInicio, localizacao, status) {
+            document.querySelector('[name="EventoEditado.IdFuracao"]').value = id;
+            document.querySelector('[name="EventoEditado.Nome"]').value = nome;
+            document.querySelector('[name="EventoEditado.Intensidade"]').value = intensidade;
+            document.querySelector('[name="EventoEditado.DataInicio"]').value = dataInicio;
+            document.querySelector('[name="EventoEditado.Localizacao"]').value = localizacao;
+            document.querySelector('[name="EventoEditado.Status"]').value = status;
+        }
+    </script>
+}
