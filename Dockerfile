@@ -1,22 +1,26 @@
-# Etapa base com o ASP.NET Runtime
+# --- Etapa 1: imagem base de runtime ---
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
 EXPOSE 8080
 
-# Etapa de build com o SDK do .NET
+# --- Etapa 2: build e publish ---
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copia apenas o .csproj e restaura as dependências
-COPY *.csproj ./
-RUN dotnet restore
+# 1) Copia apenas o csproj e restaura dependências
+COPY ["FuracaoAlerta.API.csproj", "./"]
+RUN dotnet restore "FuracaoAlerta.API.csproj"
 
-# Copia todos os arquivos restantes e compila
-COPY . ./
-RUN dotnet publish -c Release -o /app/publish
+# 2) Copia todo o restante do código e faz build + publish
+COPY . .
+RUN dotnet publish "FuracaoAlerta.API.csproj" -c Release -o /app/publish
 
-# Etapa final: junta tudo
+# --- Etapa 3: imagem final ---
 FROM base AS final
 WORKDIR /app
+
+# Copia o resultado do publish
 COPY --from=build /app/publish .
+
+# Define o entrypoint
 ENTRYPOINT ["dotnet", "FuracaoAlerta.API.dll"]
