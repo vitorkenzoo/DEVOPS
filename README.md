@@ -11,13 +11,13 @@
 - Oracle Database 21c
 - Swagger / OpenAPI 3.0
 - Visual Studio Code
-
+- VM linux
 ---
 
 ## 📁 Estrutura do Projeto
 
 ```
-FuracaoAlerta.API
+DEVOPS
 ├── Controllers
 ├── DTOs
 ├── Models
@@ -26,6 +26,7 @@ FuracaoAlerta.API
 ├── Program.cs
 ├── appsettings.json
 ├── FuracaoAlerta.API.csproj
+├── Dockerfile
 ```
 
 ---
@@ -51,20 +52,6 @@ http://localhost:5029/swagger
 ```
 
 > Você poderá testar todos os endpoints diretamente pela interface.
-
----
-
-## 🌱 Dados de Exemplo (Seed)
-
-Ao iniciar a aplicação, os seguintes dados são criados automaticamente no banco:
-
-- **Evento:** Furacão Aurora
-- **Alerta:** Evacuação urgente da zona costeira
-- **Usuário:** João Silva
-- **Abrigo:** Abrigo Municipal A
-- **Endereço:** Av. Central, Fortaleza
-
----
 
 ## ⚙️ Configuração
 
@@ -95,12 +82,5 @@ dotnet run
 
 ## 👨‍💻 Desenvolvedores
 
-- Vitor Kenzo
--
--
-
----
-
-## 📂 Repositório
-
-🔗 [https://github.com](https://github.com)
+- Vitor Kenzo Mizumoto
+- Adriano Barutt
