@@ -18,8 +18,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
 
 # 2.1) força o Kestrel a escutar na porta 80
-ENV ASPNETCORE_URLS=http://+:80
-EXPOSE 80
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
 # 2.2) copia só o que foi publicado
 COPY --from=build /app/publish ./

@@ -62,4 +62,4 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapRazorPages();
 
-app.Run();
+app.Run("http://74.235.226.100:8080");
