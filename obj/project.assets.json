@@ -3790,11 +3790,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Vitor Mizumoto\\DEVOPS\\DEVOPS\\FuracaoAlerta.API.csproj",
+      "projectUniqueName": "C:\\Users\\Vitor Mizumoto\\Nova pasta\\DEVOPS\\FuracaoAlerta.API.csproj",
       "projectName": "FuracaoAlerta.API",
-      "projectPath": "C:\\Users\\Vitor Mizumoto\\DEVOPS\\DEVOPS\\FuracaoAlerta.API.csproj",
+      "projectPath": "C:\\Users\\Vitor Mizumoto\\Nova pasta\\DEVOPS\\FuracaoAlerta.API.csproj",
       "packagesPath": "C:\\Users\\Vitor Mizumoto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vitor Mizumoto\\DEVOPS\\DEVOPS\\obj\\",
+      "outputPath": "C:\\Users\\Vitor Mizumoto\\Nova pasta\\DEVOPS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Vitor Mizumoto\\AppData\\Roaming\\NuGet\\NuGet.Config"

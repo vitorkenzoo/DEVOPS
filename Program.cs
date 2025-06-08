@@ -5,12 +5,12 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔌 Conexão com Oracle via ENV
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// 🔌 Conexão com Oracle
+var connectionString = builder.Configuration.GetConnectionString("OracleConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseOracle(connectionString));
 
-// 🧠 DI dos serviços
+// 🧠 Injeção de dependência dos serviços
 builder.Services.AddScoped<AlertaService>();
 builder.Services.AddScoped<EventoService>();
 builder.Services.AddScoped<UsuarioService>();
@@ -19,9 +19,9 @@ builder.Services.AddScoped<EnderecoService>();
 
 // 📄 Controllers e Razor Pages
 builder.Services.AddControllers();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(); // Adiciona suporte a Razor Pages
 
-// 🧪 Swagger sempre ativo
+// 🧪 Swagger com metadados
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -41,25 +41,24 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// 🌱 Seed de dados
+// 🌱 Executar Seed de dados iniciais
 SeedData.Inicializar(app);
 
 // 🚀 Pipeline
-app.UseSwagger();
-app.UseSwaggerUI(c =>
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    c.RoutePrefix = string.Empty; // Swagger na raiz
-});
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-// Sem redirecionamento para HTTPS
-// app.UseHttpsRedirection();
-
-app.UseStaticFiles();
+app.UseHttpsRedirection();
+app.UseStaticFiles(); // Habilita arquivos estáticos (CSS, JS, etc. se necessário)
 app.UseRouting();
+
 app.UseAuthorization();
 
+// Mapeamento das rotas de Controllers e Razor Pages
 app.MapControllers();
-app.MapRazorPages();
+app.MapRazorPages(); // 🔥 Ativa as páginas Razor
 
-app.Run("http://74.235.226.100:8080");
+app.Run();

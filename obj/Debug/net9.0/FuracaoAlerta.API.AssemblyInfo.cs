@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FuracaoAlerta.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5fa3c6b98cdbe6a78a4d85b009106c7a24f7178f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8cafeaedd4d82c5ad509b82e04242ec03e49af98")]
 [assembly: System.Reflection.AssemblyProductAttribute("FuracaoAlerta.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FuracaoAlerta.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
